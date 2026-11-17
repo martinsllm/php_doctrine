@@ -7,6 +7,7 @@ use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\ORMSetup;
 use Symfony\Component\Console\Logger\ConsoleLogger;
 use Symfony\Component\Console\Output\ConsoleOutput;
+use Symfony\Component\Cache\Adapter\PhpFilesAdapter;
 
 class EntityManagerCreator
 {
@@ -20,6 +21,13 @@ class EntityManagerCreator
         $consoleLogger = new ConsoleLogger($consoleOutput);
         $logMiddleware = new Middleware($consoleLogger);
         $config->setMiddlewares([$logMiddleware]);
+
+        $config->setMetadataCache(
+            new PhpFilesAdapter(
+                namespace: 'metadata_cache', 
+                directory: __DIR__ . '/../../var/cache/doctrine/metadata'
+            )
+        );
 
         $conn = [
             'driver' => 'pdo_sqlite',
