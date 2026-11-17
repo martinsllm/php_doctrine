@@ -10,8 +10,9 @@ use Doctrine\ORM\Mapping\GeneratedValue;
 use Doctrine\ORM\Mapping\Id;
 use Doctrine\ORM\Mapping\ManyToMany;
 use Doctrine\ORM\Mapping\OneToMany;
+use App\Doctrine\Repository\DoctrineStudentRepository;
 
-#[Entity]
+#[Entity(repositoryClass: DoctrineStudentRepository::class)]
 class Student
 {
     #[Id, GeneratedValue, Column]
