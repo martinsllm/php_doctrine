@@ -2,4 +2,4 @@
 vendor
 db.sqlite
 
-var/cache/doctrine/metadata/*
+var/cache/doctrine/*
