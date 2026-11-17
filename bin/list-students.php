@@ -8,7 +8,10 @@ use App\Doctrine\Helper\EntityManagerCreator;
 require_once __DIR__ . '/../vendor/autoload.php';
 
 $entityManager = EntityManagerCreator::createEntityManager();
-$dql = 'SELECT student FROM App\\Doctrine\\Entity\\Student student';
+$dql = 'SELECT student, phone, course
+    FROM App\\Doctrine\\Entity\\Student student
+    LEFT JOIN student.phones phone
+    LEFT JOIN student.courses course';
 
 /** @var Student[] $studentList */
 $studentList = $entityManager->createQuery($dql)->getResult();

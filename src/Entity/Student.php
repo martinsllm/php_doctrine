@@ -20,7 +20,8 @@ class Student
     #[OneToMany(
         mappedBy: "student",
         targetEntity: Phone::class,
-        cascade: ["persist", "remove"]
+        cascade: ["persist", "remove"],
+        fetch: "EAGER"
     )]
     private Collection $phones;
 
