@@ -13,6 +13,10 @@ class EntityManagerCreator
 {
     public static function createEntityManager(): EntityManager
     {
+        $dotenv = \Dotenv\Dotenv::createImmutable(__DIR__ . '/../../');
+        $dotenv->load();
+        $dotenv->required(['DB_HOST', 'DB_PORT', 'DB_NAME', 'DB_USER', 'DB_PASSWORD']);
+        
         $config = ORMSetup::createAttributeMetadataConfiguration(
             [__DIR__ . "/.."],
             true
@@ -46,10 +50,13 @@ class EntityManagerCreator
         );
 
         $conn = [
-            'driver' => 'pdo_sqlite',
-            'path' => __DIR__ . '/../../db.sqlite',
+            'driver' => 'pdo_mysql',
+            'host' => $_ENV['DB_HOST'],
+            'port' => $_ENV['DB_PORT'],
+            'dbname' => $_ENV['DB_NAME'],
+            'user' => $_ENV['DB_USER'],
+            'password' => $_ENV['DB_PASSWORD'],
         ];
-
         return EntityManager::create($conn, $config);
     }
 }
